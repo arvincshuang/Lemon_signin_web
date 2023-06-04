@@ -225,6 +225,7 @@
 								new_dateresultinput.setAttribute("disabled","disabled");
 								dateresultdiv.appendChild(new_dateresultinput);
 						  	}
+						  	dateresultdiv.appendChild(document.createElement('p'));
 						  	var showresultdiv=document.getElementById("showresult");
 						  	for (i=0;i<showresult_len;i++){
   							    alert(result.replymsg[i].text);
@@ -235,7 +236,7 @@
 								new_resultinput.setAttribute("disabled","disabled");
 								showresultdiv.appendChild(new_resultinput);
 						  	}
-
+							showresultdiv.appendChild(document.createElement('p'));
 
 						  });
 					}
