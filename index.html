@@ -18,7 +18,7 @@
 	</head>
 	<body>
 		<div class="container" id="app">
-			<form onsubmit="return submitform();">
+			<form class="mb-5" onsubmit="return submitform();">
 			  <div class="mb-3">
 				<h4><label for="selectdate" class="form-label">請選擇要簽到的【日期】</label></h4>	
 				<input type="text" class="form-control" id="datepicker" required="required">
@@ -58,36 +58,24 @@
 			    </div>
 			  </div>
 
-			  <button type="submit" class="btn btn-primary">Submit</button>
+			  <button type="submit" class="btn btn-primary">送出</button>
 		  	  <button type="button" class="btn btn-outline-primary" style="float: right" onclick="addsignlist()">新增姓名欄位</button>
 			</form>
-		  	  <button type="button" class="btn btn-outline-primary" style="float: right" onclick="test()">test</button>
+			
+			<div class="alert alert-primary" role="alert" id="showresult">
+				本次簽到結果：<p>
+			  
+			</div>
+			<div class="alert alert-danger" role="alert" id="dateresult">
+				簽到日期結果：<p>
+			  
+			</div>
+	  	  	<button type="button" class="btn btn-outline-primary" style="float: right" onclick="location.reload();">重新整理頁面</button>
 		</div>
 		
 
 		<script type="text/javascript">
-			function test(){
-				fetch("https://script.google.com/macros/s/AKfycbxKLUNRlVsbGq7CBVy3bQn0Q9bL7UCkReycxJgjSNiH9Z3EcXdQkaL2laS2k2mir5m0/exec",
-				{
-				    method: 'POST',
-				    body: JSON.stringify({
-				      '簽到日期': "2023/06/04",
-      				      '簽到堂次': "1",
-      				      '簽到姓名': "玟芯",
-      				      '簽到班別': "創意",
-				    }),
-				  })
-				  .then(function (response) {
-				    return response.json();
-				  })
-				  .then(function (result) {
-				    alert(result.t_text);
-				     alert(result.message);
-				      alert(result.classtype);
-				  });
 
-
-			}
 			function addclasslist(e){	
 				var signdiv=document.getElementById(e.id+'-div');
 				if (e.value ==''){
@@ -210,7 +198,7 @@
 					if (signresult){
 						var signnamelist=signnamelist.toString();
 						var classtypelist=classtypelist.toString();
-						fetch("https://script.google.com/macros/s/AKfycbxngIt8a0MTV5Cbaj4WlQFoXC80tXEI-xQYiC3fBuLdjEGCJgjTkKMWStNime3y22xc/exec",
+						fetch("https://script.google.com/macros/s/AKfycbxLVJz1icUwfhUWbU8XTRAImvL1Adn89jD9ZzHaUxgLf9kerF2nnudl2bNLrmzrtVdA/exec",
 						{
 						    method: 'POST',
 						    body: JSON.stringify({
@@ -224,12 +212,32 @@
 						    return response.json();
 						  })
 						  .then(function (result) {
-						  	for (i=0;i<=result.replymsg.length;i++){
-  							    alert(result.replymsg[i].text);
-						  	}
-						    					    
-						  });
 
+							var dateresult_len=result.signmsg.length;
+							var showresult_len=result.replymsg.length;
+							
+						  	var dateresultdiv=document.getElementById("dateresult");
+						  	for (j=0;j<dateresult_len;j++){
+  							    var new_dateresultinput=document.createElement('input');
+								new_dateresultinput.setAttribute("type","text");
+								new_dateresultinput.setAttribute("class","form-control");
+								new_dateresultinput.setAttribute("placeholder",result.signmsg[j].text);
+								new_dateresultinput.setAttribute("disabled","disabled");
+								dateresultdiv.appendChild(new_dateresultinput);
+						  	}
+						  	var showresultdiv=document.getElementById("showresult");
+						  	for (i=0;i<showresult_len;i++){
+  							    alert(result.replymsg[i].text);
+  							    var new_resultinput=document.createElement('input');
+								new_resultinput.setAttribute("type","text");
+								new_resultinput.setAttribute("class","form-control");
+								new_resultinput.setAttribute("placeholder",result.replymsg[i].text);
+								new_resultinput.setAttribute("disabled","disabled");
+								showresultdiv.appendChild(new_resultinput);
+						  	}
+
+
+						  });
 					}
 				return false
 			}
