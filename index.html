@@ -50,11 +50,25 @@
 				<input type="radio" class="btn-check" name="classidx" id="option8" autocomplete="off" value="8">
 				<label class="btn btn-outline-secondary" for="option8">8</label>
 			  </div>
+			  <div class="mb-3">
+			    <h4><label for="selectclasstype" class="form-label">請選擇要簽到的【班別】</label></h4>				
+				<input type="radio" class="btn-check" name="classtype" id="ctoption1" autocomplete="off" value="繪畫" required="required">
+				<label class="btn btn-outline-secondary" for="ctoption1">繪畫</label>
+
+				<input type="radio" class="btn-check" name="classtype" id="ctoption2" autocomplete="off" value="創意">
+				<label class="btn btn-outline-secondary" for="ctoption2">創意</label>
+
+				<input type="radio" class="btn-check" name="classtype" id="ctoption3" autocomplete="off" value="幼幼">
+				<label class="btn btn-outline-secondary" for="ctoption3">幼幼</label>
+
+				<input type="radio" class="btn-check" name="classtype" id="ctoption4" autocomplete="off" value="書法">
+				<label class="btn btn-outline-secondary" for="ctoption4">書法</label>
+			  </div>
 			  
 			  <div class="mb-3" id="signlist">
-			    <h4><label for="inputname" class="form-label">請填寫要簽到的學生【姓名】與選擇課別</label></h4>
+			    <h4><label for="inputname" class="form-label">請填寫要簽到的學生【姓名】</label></h4>
 			    <div class="mb-3" id="sn-1-div">
-			    	<input type="text" class="form-control" name="sn-names" id="sn-1" required="required" onchange="addclasslist(this);">
+			    	<input type="text" class="form-control" name="sn-names" id="sn-1" required="required">
 			    </div>
 			  </div>
 
@@ -75,80 +89,6 @@
 		
 
 		<script type="text/javascript">
-
-			function addclasslist(e){	
-				var signdiv=document.getElementById(e.id+'-div');
-				if (e.value ==''){
-					signdiv.removeChild(document.getElementById(e.id+'-radio'));
-				}
-				else{
-					if(document.getElementById(e.id+'-radio')==null){
-						var new_radiodiv=document.createElement('div');
-						new_radiodiv.setAttribute("class","btn-group");
-						new_radiodiv.setAttribute("role","group");
-						new_radiodiv.setAttribute("aria-label",e.id+"-type");
-						new_radiodiv.setAttribute("id",e.id+"-radio");
-
-						var classlist=["繪畫","創意","幼幼","書法","暑假","寒假"];			
-						for (i=0;i<classlist.length;i++){
-							var new_radioinput=document.createElement('input');
-							new_radioinput.setAttribute("type","radio");
-							new_radioinput.setAttribute("class","btn-check");
-							new_radioinput.setAttribute("name",e.id+"-radio");
-							new_radioinput.setAttribute("id",e.id+"-radio-"+i);
-							new_radioinput.setAttribute("autocomplete","off");
-							new_radioinput.setAttribute("value",classlist[i]);
-							if (i==0){
-								new_radioinput.setAttribute("required","required");
-							}					
-							new_radiodiv.appendChild(new_radioinput);
-							
-							var new_radiolabel=document.createElement('label');
-							new_radiolabel.setAttribute("class","btn btn-outline-secondary");
-							new_radiolabel.setAttribute("for",e.id+"-radio-"+i);
-							var new_radiolabeltext = document.createTextNode(classlist[i]);
-							new_radiolabel.appendChild(new_radiolabeltext);
-							new_radiodiv.appendChild(new_radiolabel);
-						}
-						signdiv.appendChild(new_radiodiv);
-					}
-					else{
-						signdiv.removeChild(document.getElementById(e.id+'-radio'));
-						var new_radiodiv=document.createElement('div');
-						new_radiodiv.setAttribute("class","btn-group");
-						new_radiodiv.setAttribute("role","group");
-						new_radiodiv.setAttribute("aria-label",e.id+"-type");
-						new_radiodiv.setAttribute("id",e.id+"-radio");
-
-						var classlist=["繪畫","創意","幼幼","書法","暑假","寒假"];			
-						for (i=0;i<classlist.length;i++){
-							var new_radioinput=document.createElement('input');
-							new_radioinput.setAttribute("type","radio");
-							new_radioinput.setAttribute("class","btn-check");
-							new_radioinput.setAttribute("name",e.id+"-radio");
-							new_radioinput.setAttribute("id",e.id+"-radio-"+i);
-							new_radioinput.setAttribute("autocomplete","off");
-							new_radioinput.setAttribute("value",classlist[i]);
-							if (i==0){
-								new_radioinput.setAttribute("required","required");
-							}					
-							new_radiodiv.appendChild(new_radioinput);
-							
-							var new_radiolabel=document.createElement('label');
-							new_radiolabel.setAttribute("class","btn btn-outline-secondary");
-							new_radiolabel.setAttribute("for",e.id+"-radio-"+i);
-							var new_radiolabeltext = document.createTextNode(classlist[i]);
-							new_radiolabel.appendChild(new_radiolabeltext);
-							new_radiodiv.appendChild(new_radiolabel);
-						}
-						signdiv.appendChild(new_radiodiv);
-					}
-					
-
-				}
-						
-
-			}
 			
 			function addsignlist (){
 
@@ -161,7 +101,6 @@
 				new_sninput.setAttribute("class","form-control");
 				new_sninput.setAttribute("name","sn-names");
 				new_sninput.setAttribute("id",new_sninput_id);
-				new_sninput.setAttribute("onchange","addclasslist(this);");
 
 				var new_sndiv_id=new_sninput_id+"-div";	
 				var new_sndiv=document.createElement('div');
@@ -179,33 +118,24 @@
 				var selectdate = document.getElementById("datepicker").value;
 				var selectclass = document.querySelector( 'input[name=classidx]:checked').value;
 				var signnamelist=[];
-				var classtypelist=[];
+				var selecttype=document.querySelector( 'input[name=classtype]:checked').value;
 				document.querySelectorAll('input[name="sn-names"]').forEach((elem) => {
 					if (elem.value != ''){
-						var snclass = document.querySelector( 'input[name='+elem.id+'-radio]:checked').value;
 						signnamelist.push(elem.value);
-						classtypelist.push(snclass);
 					}
 				    });
-				//var signnamelist=signnamelist.toString();
-				//var classtypelist=classtypelist.toString();
-				var studentlist=[];
-				for (i=0;i<signnamelist.length;i++){
-					studentlist.push(signnamelist[i]+":"+classtypelist[i]);
-				}
-				var studentlist=studentlist.toString();
-				var signresult = confirm("要簽到的日期:【"+selectdate+"】\n要簽到的堂次:【第"+selectclass+"堂】\n要簽到的學生:【"+studentlist+"】");
+				var signnamelist=signnamelist.toString();
+
+				var signresult = confirm("要簽到的日期:【"+selectdate+"】\n要簽到的堂次:【第"+selectclass+"堂】\n要簽到的班別:【"+selecttype+"】 \n要簽到的學生:【"+signnamelist+"】");
 					if (signresult){
-						var signnamelist=signnamelist.toString();
-						var classtypelist=classtypelist.toString();
-						fetch("https://script.google.com/macros/s/AKfycbxD9CKiGfJkRid1YJnVqlblhKMWBvqku5mdTDWp6QHZ7JB39W2fstvr8T2Dsy_ca4hP/exec",
+						fetch("https://script.google.com/macros/s/AKfycbxFlYPwfX5k0tgDcbECBPPgpgb9L8IF3lX6qVNqRpTs-jsPbRt3OfpfhunNvJLNwn6cDg/exec",
 						{
 						    method: 'POST',
 						    body: JSON.stringify({
 						      '簽到日期': selectdate,
 		      				      '簽到堂次': selectclass,
 		      				      '簽到姓名': signnamelist,
-		      				      '簽到班別': classtypelist,
+		      				      '簽到班別': selecttype,
 						    }),
 						  })
 						  .then(function (response) {
