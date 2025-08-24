@@ -75,6 +75,7 @@
 			  </div>
 
 			  <button type="submit" class="btn btn-primary">送出</button>
+			  <button type="button" class="btn btn-warning" onclick="clearForm()">清除文字內容</button>
 		  	  <button type="button" class="btn btn-outline-primary" style="float: right" onclick="addsignlist()">新增姓名欄位</button>
 			</form>
 			
@@ -91,6 +92,25 @@
 		
 
 		<script type="text/javascript">
+			function clearForm() {
+				// 清空日期
+				document.getElementById("datepicker").value = "";
+			
+				// 清空堂次
+				document.querySelectorAll('input[name="classidx"]').forEach((elem) => {
+					elem.checked = false;
+				});
+			
+				// 清空班別
+				document.querySelectorAll('input[name="classtype"]').forEach((elem) => {
+					elem.checked = false;
+				});
+			
+				// 清空所有姓名輸入框
+				document.querySelectorAll('input[name="sn-names"]').forEach((elem) => {
+					elem.value = "";
+				});
+			}
 			
 			function addsignlist (){
 
