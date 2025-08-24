@@ -73,10 +73,15 @@
 			    	<input type="text" class="form-control" name="sn-names" id="sn-1" required="required">
 			    </div>
 			  </div>
-
-			  <button type="submit" class="btn btn-primary">送出</button>
-			  <button type="button" class="btn btn-warning me-6" onclick="clearForm()">清除文字內容</button>
-		  	  <button type="button" class="btn btn-outline-primary" style="float: right" onclick="addsignlist()">新增姓名欄位</button>
+				<div class="d-flex justify-content-between mb-2">
+				  <button type="submit" class="btn btn-primary">送出</button>
+				  <button type="button" class="btn btn-outline-primary" onclick="addsignlist()">新增姓名欄位</button>
+				</div>
+				
+				<!-- 下一行：清除文字內容置中 -->
+				<div class="d-flex justify-content-center">
+				  <button type="button" class="btn btn-warning" onclick="clearForm()">清除文字內容</button>
+				</div>
 			</form>
 			
 			<div class="alert alert-primary" role="alert" id="showresult">
